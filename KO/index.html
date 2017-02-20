@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>Knockout JS practice by Sandeep</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="jumbotron">
+<h1>Knockout JS</h1>
+<h3>by Sandeep</h3>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">Introduction!</div>
+  <div class="panel-body">
+  <div class="row">
+  <div class="col-lg-5">
+  	<div class="well well-info"><h2>Data Binding</h2>
+<p>viewmodel is a JavaScript file that defines the data and behavior of your UI and ko.applyBindings activates knockout.js. <br>The following first name and last name values are binded using <b>data-bind(text)</b> attribute.</p><br>
+  	<p>First name: <strong data-bind="text: firstName"></strong></p>
+	<p>Last name: <strong data-bind="text: lastName"></strong></p>
+  	</div>
+
+  </div>
+  <div class="col-lg-7">
+  	<div class="well well-info">
+	<h2>Using observable</h2>
+	<b>data-bind(value)</b><br><br>
+	<p>First name: <input data-bind="value: firstName" /></p>
+	<p>Last name: <input data-bind="value: lastName" /></p>
+	<pre><h5>Change the values in the above text fields and see the magic.</h5>
+	First name: <strong data-bind="text: firstName"></strong>
+	Last name: <strong data-bind="text: lastName"></strong>	
+	</pre>
+  	</div>
+  </div>
+<div class="col-lg-7">
+  	<div class="well well-info">
+	<h2>Compued Values</h2>
+	<b>ko.computed()</b><br><br>
+	<p>ko.computed which specifies how it should compute its value.</p>
+	<p>Here I added fullname property to viewmodel, after the declaration of firstName and lastName.</p>
+	<p>Full name: <strong data-bind="text: fullName"></strong></p>
+	<input data-bind="value:fullName" />
+  	</div>
+  </div>
+<div class="col-lg-5">
+	<div class="well well-info">
+	<h2>Adding one more</h2>
+	<b>Capitalize text</b><br><br>
+	<p>Click on the following buton to capitalize this Name : <strong data-bind="text:sb"></strong>.<br><br>
+			<input data-bind="click: capitalizefirstName" value="Capitalize" class="btn btn-primary" />
+	</p>
+	</div>
+</div>
+
+  </div>
+  </div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">Lists and Collections</div>
+<div class="panel-body">
+<div class="col-lg-6">
+	<div class="well well-info">
+	<h2>Working with lists and collections</h2>
+	<p>In this section we will use <b>observable arrays</b> and <b>foreach</b> to generate repeating blocks of UI elements and user can add or remove elments.</p><br>
+	<p><b>Example: </b></p>
+	<ul>
+	<li>SeatReservation, a simple JavaScript class constructor that stores a passenger name with a meal selection</li>
+<li>ReservationsViewModel, a viewmodel class that holds:
+<ul><li>availableMeals, a JavaScript object providing meal data</li>
+<li>seats, an array holding an initial collection of SeatReservation instances. Note that it's a  ko.observableArray - not surprisingly, that's the observable equivalent of a regular array, which means it can automatically trigger UI updates whenever items are added or removed.</li></ul>
+</li>
+	</ul>
+	<div class="table-responsive">
+	<table class="table">
+	<thead><tr><th>Passenger Name</th><th>Choosen Item</th><th>Price</th></tr></thead>
+	<tbody data-bind="foreach: seats">
+	<tr>
+	<td data-bind="text: name"></td>
+        <td data-bind="text: meal().mealName"></td>
+        <td data-bind="text: meal().price"></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+</div>
+</div>
+<div class="col-lg-6">
+	<div class="well well-info">
+	<h2>Adding and Removing Elements</h2>
+	<div class="table-responsive">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Roll No.</th><th>Student Name</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: stds">
+		<tr>
+			<td data-bind="text: rollno"></td>
+			<td data-bind="text: std_name"></td>
+			<td><a href="#" data-bind="click: $root.removeStd.bind($root)">Remove</a></td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+	<input data-bind="value: stdid_new" />
+	<input data-bind="value: stdname_new" />
+	<button data-bind="click: addStud" class="btn btn-primary">Add Student</button>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/knockout-3.4.1.js"></script>
+<script src="js/myKO.js"></script>
+</body>
+</html>
