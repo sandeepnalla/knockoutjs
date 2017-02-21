@@ -42,7 +42,7 @@
   </div>
 <div class="col-lg-7">
   	<div class="well well-info">
-	<h2>Compued Values</h2>
+	<h2>Computed Values</h2>
 	<b>ko.computed()</b><br><br>
 	<p>ko.computed which specifies how it should compute its value.</p>
 	<p>Here I added fullname property to viewmodel, after the declaration of firstName and lastName.</p>
@@ -86,6 +86,7 @@
 	<td data-bind="text: name"></td>
         <td data-bind="text: meal().mealName"></td>
         <td data-bind="text: meal().price"></td>
+        <td><a href="#" data-bind="click: $root.removePass">Remove Passenger</a>
 	</tr>
 	</tbody>
 	</table>
@@ -95,11 +96,12 @@
 <div class="col-lg-6">
 	<div class="well well-info">
 	<h2>Adding and Removing Elements</h2>
+	<strong>Number of Employess: </strong><span data-bind="text: stds().length"></span>
 	<div class="table-responsive">
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Roll No.</th><th>Student Name</th>
+				<th>Roll No.</th><th>Employee Name</th>
 			</tr>
 		</thead>
 		<tbody data-bind="foreach: stds">
@@ -113,7 +115,7 @@
 	</div>
 	<input data-bind="value: stdid_new" />
 	<input data-bind="value: stdname_new" />
-	<button data-bind="click: addStud" class="btn btn-primary">Add Student</button>
+	<button data-bind="click: addStud" class="btn btn-primary">Add Employee</button>
 	</div>
 </div>
 </div>
