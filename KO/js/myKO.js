@@ -4,57 +4,61 @@ function SeatReservation(name, selectedMeal){
 		self.meal = ko.observable(selectedMeal);
 	}
 function AppViewModel(){
-	var jujupi = this;
-	jujupi.firstName = ko.observable("Sandeep");
-	jujupi.lastName=ko.observable("Nalla");
-	jujupi.firstName2 = ko.observable("Sujith");
-	jujupi.lastName2=ko.observable("Kumar");
+	var self = this;
+	self.firstName = ko.observable("Sandeep");
+	self.lastName=ko.observable("Nalla");
+	self.firstName2 = ko.observable("Sujith");
+	self.lastName2=ko.observable("Kumar");
 	
-	jujupi.fullName=ko.computed(function(){
-		return jujupi.firstName2()+" "+jujupi.lastName2();
-	},jujupi);
-	jujupi.sb=ko.observable("Siva Naadh Bazi");
-	jujupi.capitalizefirstName = function(){
-		var curr=jujupi.sb();
-		jujupi.sb(curr.toUpperCase());
+	self.fullName=ko.computed(function(){
+		return self.firstName2()+" "+self.lastName2();
+	},self);
+	self.sb=ko.observable("Siva Naadh Bazi");
+	self.capitalizefirstName = function(){
+		var curr=self.sb();
+		self.sb(curr.toUpperCase());
 	};
 
-	jujupi.availableMeals = 
+	self.availableMeals = 
 	[
 		{mealName:"Veg Biryani", price: 40},
 		{mealName:"Egg Biryani", price: 50},
 		{mealName:"Chicken Biryani", price: 100}
 	];
-	jujupi.seats=ko.observableArray([
-		new SeatReservation("Sandeep",jujupi.availableMeals[2]),
-		new SeatReservation("Bazi",jujupi.availableMeals[1]),
-		new SeatReservation("Sujith",jujupi.availableMeals[0])
+	self.seats=ko.observableArray([
+		new SeatReservation("Sandeep",self.availableMeals[2]),
+		new SeatReservation("Bazi",self.availableMeals[1]),
+		new SeatReservation("Sujith",self.availableMeals[0])
 	]);
-	jujupi.stds = ko.observableArray([{rollno:1,std_name:"Ashok"},{rollno:2,std_name:"Chandu"}]);
-	jujupi.stdid_new = ko.observable(3);
-	jujupi.stdname_new = ko.observable("Makanth");
-	jujupi.addStud = function(){
-		jujupi.stds.push({rollno: jujupi.stdid_new(),std_name: jujupi.stdname_new()});
+	self.stds = ko.observableArray([{rollno:1,std_name:"Ashok"},{rollno:2,std_name:"Chandu"}]);
+	self.stdid_new = ko.observable(3);
+	self.stdname_new = ko.observable("Makanth");
+	self.addStud = function(){
+		self.stds.push({rollno: self.stdid_new(),std_name: self.stdname_new()});
 	};
-	jujupi.removeStd = function(std){
-		jujupi.stds.remove(std);
+	self.removeStd = function(std){
+		self.stds.remove(std);
 	};
-	jujupi.removePass = function(seat){
-		jujupi.seats.remove(seat);
+	self.removePass = function(seat){
+		self.seats.remove(seat);
 	};
+	self.folders = ['Inbox','Archive','Sent','Draft','Spam'];
+	self.chosenFolderId = ko.observable();
+	self.chosenFolderData = ko.observable();
+	self.chosenMailData = ko.observable();
+
+	self.goToFolder = function(folder){
+		self.chosenFolderId(folder);
+		self.chosenMailData(null);
+		$.get('http://learn.knockoutjs.com/mail',{folder:folder},self.chosenFolderData);
+	};
+	self.getMail = function(mail){
+		self.chosenFolderId(mail.folder);
+		self.chosenFolderData(null);
+		$.get('http://learn.knockoutjs.com/mail',{mailId:mail.id},self.chosenMailData);
+	};
+	self.goToFolder('Inbox')
 }
 
 
 ko.applyBindings(new AppViewModel());
-
-
-
-// function ReservationsViewModel(){
-// 	jujupi.availableMeals = [{mealName:"Veg Biryani", price: 40},{mealName:"Egg Biryani", price: 50},{mealName:"Chicken Biryani", price: 100}];
-// 	jujupi.seats=ko.observableArray([
-// 		new SeatReservation("Sandeep",jujupi.availableMeals[2]),
-// 		new SeatReservation("Bazi",jujupi.availableMeals[1]),
-// 		new SeatReservation("Sujith",jujupi.availableMeals[0])
-// 	]);
-// }
-//ko.applyBindings(new ReservationsViewModel());

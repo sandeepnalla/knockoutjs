@@ -7,7 +7,99 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<style type="text/css">
+.folders {
+    background-color: rgb(187, 187, 187);
+    list-style-type: none;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(214, 214, 214)), color-stop(0.4, rgb(192, 192, 192)), to(rgb(164, 164, 164)));
+    font-size: 0px;
+    padding: 0px;
+    border-radius: 7px;
+    margin: 10px 0px 16px;
+}
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+.folders li {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(68, 68, 68);
+    text-shadow: rgb(247, 247, 247) 0px 1px 1px;
+    padding: 0.5em 1.5em;
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(136, 136, 136);
+}
 
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.folders li:first-child {
+    border-left: none;
+    border-radius: 7px 0px 0px 7px;
+}
+.folders .selected {
+    color: white;
+    text-shadow: none;
+    border-right-color: rgb(170, 170, 170);
+    box-shadow: rgb(7, 7, 7) 1px 2px 6px inset;
+    background-color: rgb(68, 68, 68);
+    border-left: none;
+}
+.mails {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0px;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+.mails th:nth-child(1), .mails td:nth-child(1) {
+    width: 20%;
+}
+.mails th {
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(136, 136, 136);
+    padding: 0.4em 0px 0.3em 0.7em;
+}
+.mails th, .mails td {
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0.4em 0.3em;
+    overflow: hidden;
+}
+th {
+    font-weight: bold;
+    text-align: -internal-center;
+}
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+.mails thead {
+    background-color: rgb(187, 187, 187);
+    font-weight: bold;
+    color: rgb(68, 68, 68);
+    text-shadow: rgb(247, 247, 247) 0px 1px 1px;
+}
+.mails tbody tr:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgb(102, 136, 204);
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -66,7 +158,7 @@
 <div class="panel panel-primary">
 <div class="panel-heading">Lists and Collections</div>
 <div class="panel-body">
-<div class="col-lg-6">
+<div class="col-lg-7">
 	<div class="well well-info">
 	<h2>Working with lists and collections</h2>
 	<p>In this section we will use <b>observable arrays</b> and <b>foreach</b> to generate repeating blocks of UI elements and user can add or remove elments.</p><br>
@@ -93,7 +185,7 @@
 	</div>
 </div>
 </div>
-<div class="col-lg-6">
+<div class="col-lg-5">
 	<div class="well well-info">
 	<h2>Adding and Removing Elements</h2>
 	<strong>Number of Employess: </strong><span data-bind="text: stds().length"></span>
@@ -101,7 +193,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Roll No.</th><th>Employee Name</th>
+				<th>Emp. No.</th><th>Employee Name</th>
 			</tr>
 		</thead>
 		<tbody data-bind="foreach: stds">
@@ -119,6 +211,39 @@
 	</div>
 </div>
 </div>
+</div>
+<div class="panel panel-primary">
+	<div class="panel-heading">Single Page Applications</div>
+	<div class="panel-body">
+	<div class="col-lg-12 well well-info">
+		<h2>Example: Building a webmail client</h2>
+		<ul class="folders" data-bind="foreach: folders">
+			<li data-bind="text: $data,
+			css: {selected: $data == $root.chosenFolderId()},
+			click: $root.goToFolder"></li>
+		</ul>
+		<div class="table-responsive">
+		<table class="mails table table-hover" data-bind="with:chosenFolderData">
+			<thead><tr><th>From</th><th>To</th><th>Subject</th><th>Date</th></tr></thead>
+			<tbody data-bind="foreach: mails">
+			<tr data-bind="click: $root.getMail">
+				<td data-bind="text:from"></td>
+				<td data-bind="text:to"></td>
+				<td data-bind="text:subject"></td>
+				<td data-bind="text:date"></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+		<div data-bind="with: chosenMailData">
+		<strong>From: </strong><p data-bind="text: from"></p>
+		<strong>To: </strong><p data-bind="text: to"></p>
+		<strong>Date: </strong><p data-bind="text: date"></p>
+		<br>
+		<p data-bind="html: messageContent"></p>
+		</div>
+	</div>
+	</div>
 </div>
 </div>
 <script
